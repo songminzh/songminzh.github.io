@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fusugz.github.io/"/>
-  <updated>2019-02-19T06:43:12.000Z</updated>
+  <updated>2019-09-08T12:48:48.087Z</updated>
   <id>https://fusugz.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>面向接口编程</title>
+    <link href="https://fusugz.github.io/2019/09/08/face-to-protocol/"/>
+    <id>https://fusugz.github.io/2019/09/08/face-to-protocol/</id>
+    <published>2019-09-08T12:47:21.000Z</published>
+    <updated>2019-09-08T12:48:48.087Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>面向接口编程不与面向对象编程同级，而是附属于面向对象编程思想，是面向对象编程思想的精髓之一。</strong></p><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><blockquote><p>在系统分析和架构中，分清层次和依赖关系，每个层次不是直接向其上层提供服务（即不是直接实例化在上层中），而是通过定义一组接口，仅向上层暴露其接口功能，上层对于下层仅仅是接口依赖，而不依赖具体类。</p></blockquote><h3 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h3><ol><li>接口是一组规则的集合，它规定了实现本接口的类或者接口必须拥有的一组规则。</li><li>接口是在一定粒度视图上同类事物的抽象表示，实现了多态性。</li></ol><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol><li>结构清晰，使用方便。</li><li>提高系统的灵活性，当下层需要改变时，只要接口及接口功能不变，则上层不用做任何修改。</li><li>设计合理的接口，有利于程序的规范化，可并行进行开发，从而提高效率。</li><li>实现了程序的可插拔性，对于不同的需求切换不同的实现，降低了耦合度，随着系统的复杂性的提高优势会愈加明显。</li><li>允许多重实现，弥补了继承的缺陷。</li></ol><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol><li>增加了设计复杂度，不适用于简单的系统。</li><li>可能会降低代码的可复用性。</li><li>可能会降低程序的执行效率。</li></ol><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><blockquote><p> 接口分为底层实现、接口层定义、上层调用三部分。</p></blockquote><h4 id="接口层"><a href="#接口层" class="headerlink" title="接口层"></a>接口层</h4><ul><li>接口层是上下层的粘合剂，实现上下层的分离。</li><li>接口层通过单例持有底层服务。</li><li>底层需要将自己的功能注入给接口层。</li><li>上层通过指定的入口调用下层的接口。</li></ul><h4 id="底层"><a href="#底层" class="headerlink" title="底层"></a>底层</h4><ul><li>底层需要遵循接口层协议，并实现protocol的声明的方法。</li><li>底层的服务需要注入到接口层，可以是底层setup时注入，也可以是二方的其他合适的位置注入。</li></ul><h4 id="上层"><a href="#上层" class="headerlink" title="上层"></a>上层</h4><ul><li>上层只依赖接口层，通过接口层调用底层方法。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;面向接口编程不与面向对象编程同级，而是附属于面向对象编程思想，是面向对象编程思想的精髓之一。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h3&gt;&lt;b
+      
+    
+    </summary>
+    
+      <category term="code-mind" scheme="https://fusugz.github.io/categories/code-mind/"/>
+    
+    
+      <category term="protocol" scheme="https://fusugz.github.io/tags/protocol/"/>
+    
+  </entry>
   
   <entry>
     <title>ARKit应用之导航</title>
@@ -504,38 +530,6 @@
       <category term="video" scheme="https://fusugz.github.io/tags/video/"/>
     
       <category term="decode" scheme="https://fusugz.github.io/tags/decode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的Git笔记</title>
-    <link href="https://fusugz.github.io/2017/05/16/my-git-note/"/>
-    <id>https://fusugz.github.io/2017/05/16/my-git-note/</id>
-    <published>2017-05-16T02:19:52.000Z</published>
-    <updated>2017-05-22T01:54:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文记录了在Git学习中的一些要点，主要涉及Git日常使用的一些基础操作和简单使用。 </p><p>首先，我们需要熟悉Git的几个操作区域：</p><blockquote><p>Workspace: 工作区</p></blockquote><blockquote><p>Index / Stage: 暂存区</p></blockquote><blockquote><p>Respository: 本地仓库</p></blockquote><blockquote><p>Remote: 远程仓库</p></blockquote><center>Git命令在各区域间的体现</center><p><img src="http://oprnxh1p7.bkt.clouddn.com/gitmap.png" alt="Git操作在各区域间的体现"></p><h1 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h1><hr><h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><ul><li>初始化一个Git仓库，使用<code>git init</code>命令。</li></ul><ul><li>添加文件到Git仓库，分两步：</li></ul><ol><li>第一步，使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个文件,若需添加所有，则可使用<code>git add .</code>或<code>git add -A</code>；</li></ol><ol><li>第二步，使用命令<code>git commit -m &#39;&lt;message&gt;&#39;</code>，完成。</li></ol><h2 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h2><ul><li>提交暂存区文件到仓库区<code>git commit -m &#39;message&#39;</code></li></ul><ul><li>提交暂存区的指定文件到仓库区<code>git commit &lt;file1&gt; &lt;file2&gt; ... -m &#39;&lt;message&gt;&#39;</code></li></ul><ul><li>提交工作去自上次commit之后的变化到仓库区<code>git  commit -a</code></li></ul><ul><li>提交时显示diff信息<code>git commit -v</code></li></ul><ul><li>使用一次新的commit，替代上一次commit（如果无任何改变则改写上一次提交信息）<code>git commit --amend -m &#39;&lt;message&gt;&#39;</code></li></ul><h2 id="时光穿梭"><a href="#时光穿梭" class="headerlink" title="时光穿梭"></a>时光穿梭</h2><ul><li>要随时掌握工作区的状态，使用<code>git status</code>命令。</li></ul><ul><li>如果<code>git status</code>告诉你有文件被修改过，用<code>git diff</code>可以查看修改内容。</li></ul><h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><ul><li><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。</li></ul><ul><li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li></ul><ul><li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li></ul><h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><ul><li>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</li></ul><ul><li>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD file</code>，就回到了场景1，第二步按场景1操作。</li></ul><ul><li>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</li></ul><h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><ul><li>命令<code>git rm</code>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</li></ul><h2 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h2><ul><li>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</li></ul><ul><li>关联后，使用命令<code>git push -u origin master</code>第一次推送master分支的所有内容；</li></ul><ul><li>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改。</li></ul><h2 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h2><ul><li>要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。</li></ul><ul><li>Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。</li></ul><h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><ul><li>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。</li></ul><ul><li>用<code>git log --graph</code>命令可以看到分支合并图。</li></ul><h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="普通分支"><a href="#普通分支" class="headerlink" title="普通分支"></a>普通分支</h3><ul><li>查看分支：<code>git branch</code></li></ul><ul><li>查看所有远程分支： <code>git branch -r</code></li></ul><ul><li>列出所有本地分支和远程分支：<code>git branch -a</code></li></ul><ul><li>创建分支，但仍然停留在当前分支：<code>git branch &lt;branch name&gt;</code></li></ul><ul><li>创建分支并切换到新分支：<code>git checkout -b &lt;branch&gt;</code></li></ul><ul><li>创建分支，与指定的远程分支建立追踪关系：<code>git branch --track &lt;branch name&gt; &lt;remote-branch&gt;</code></li></ul><ul><li>切换分支，并更新工作区：<code>git checkout &lt;branch name&gt;</code></li></ul><ul><li>切换到上一个分支：<code>git checkout -</code></li></ul><ul><li>合并某分支到当前分支：<code>git merge &lt;branch name&gt;</code></li></ul><ul><li>删除分支：<code>git branch -d &lt;name&gt;</code></li></ul><ul><li>查看历史日志：<code>git log --graph --pretty=oneline --abbrev-commit</code></li></ul><h3 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h3><ul><li>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；</li></ul><ul><li>当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash pop</code>，回到工作现场。</li></ul><h3 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h3><ul><li>开发一个新feature，最好新建一个分支；</li></ul><ul><li>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</li></ul><h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><ul><li>查看远程库信息，使用git remote -v；</li></ul><ul><li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li></ul><ul><li>从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；</li></ul><ul><li>在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；</li></ul><ul><li>建立本地分支和远程分支的关联，使用git branch –set-upstream branch-name origin/branch-name；</li></ul><ul><li>从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</li></ul><h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><ul><li>命令<code>git tag &lt;name&gt;</code>用于新建一个标签，默认为<code>HEAD</code>，也可以指定一个commit id；</li></ul><ul><li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</li></ul><ul><li><code>git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以用PGP签名标签；</li></ul><ul><li>命令git tag可以查看所有标签。</li></ul><h2 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h2><ul><li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li></ul><ul><li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li></ul><ul><li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li></ul><ul><li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</li></ul><h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><ul><li>忽略某些文件时，需要编写.gitignore；</li></ul><ul><li>.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！</li></ul><hr><h1 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h1><hr><h2 id="配置SSH公钥验证-免密码登录"><a href="#配置SSH公钥验证-免密码登录" class="headerlink" title="配置SSH公钥验证(免密码登录)"></a>配置SSH公钥验证(免密码登录)</h2><ol><li>首先进入账户目录下，查看是否有id_rsa.pub 和 id_rsa文件；</li><li>如果没有，需要创建公钥和密钥：<code>ssh-keygen</code>,此时需要输入两次密码，如果不需要设置密码，直接回车，默认生成的两个文件是：<ul><li>id_rsa</li><li>id_rsa.pub</li></ul></li><li>查看并将公钥添加到git源码服务器即可。先查看公钥：<code>cat id_rsa.pub</code>，然后将公钥内容添加到服务器的~/.ssh/authorized_keys 文件中。</li></ol><h1 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a>了解更多</h1><ul><li><a href="https://git-scm.com/book/zh/v1" target="_blank" rel="noopener">Git官方文档</a></li><li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰Git教程</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;本文记录了在Git学习中的一些要点，主要涉及Git日常使用的一些基础操作和简单使用。 &lt;/p&gt;
-&lt;p&gt;首先，我们需要熟悉Git的几个操作区域：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Workspace: 工作区&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-      
-    
-    </summary>
-    
-      <category term="Git" scheme="https://fusugz.github.io/categories/Git/"/>
-    
-    
-      <category term="git" scheme="https://fusugz.github.io/tags/git/"/>
-    
-      <category term="note" scheme="https://fusugz.github.io/tags/note/"/>
     
   </entry>
   
