@@ -1,0 +1,902 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mala">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="baidu-site-verification" content="EndgqNGYF2">
+
+
+  <meta name="google-site-verification" content="oeUgNV5GJ_GmdqtmSN3dU4Q_N9S1cgF0G_0DfWdEpWM">
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1">
+
+
+    <meta name="description" content="选择远方，风雨兼程。">
+
+
+
+  <meta name="keywords" content="fmdb,database,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="fusugz's blog" type="application/atom+xml">
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1">
+
+
+<meta name="description" content="缘由FMDB是iOS平台处理数据持久化的一个强大工具，可以帮助开发者高效地在客户端处理数据，但对于我等初级开发者来说其使用还是不够简单。因此，有必要对它进行封装，从而使其更易于使用，封装的方式因人而异，需要我们根据自己的代码习惯进行优化。我的封装也仅限于提供一种简单的思路，以便后来者参考。 如何实现我的项目名为fmdbEncap,托管于Github。在我的代码中， 使用MZDatabaseMana">
+<meta name="keywords" content="fmdb,database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS数据持久化之FMDB的简单封装">
+<meta property="og:url" content="https://fusugz.github.io/2017/07/03/fmdb-encapsulate/index.html">
+<meta property="og:site_name" content="fusugz&#39;s blog">
+<meta property="og:description" content="缘由FMDB是iOS平台处理数据持久化的一个强大工具，可以帮助开发者高效地在客户端处理数据，但对于我等初级开发者来说其使用还是不够简单。因此，有必要对它进行封装，从而使其更易于使用，封装的方式因人而异，需要我们根据自己的代码习惯进行优化。我的封装也仅限于提供一种简单的思路，以便后来者参考。 如何实现我的项目名为fmdbEncap,托管于Github。在我的代码中， 使用MZDatabaseMana">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-07-03T03:43:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS数据持久化之FMDB的简单封装">
+<meta name="twitter:description" content="缘由FMDB是iOS平台处理数据持久化的一个强大工具，可以帮助开发者高效地在客户端处理数据，但对于我等初级开发者来说其使用还是不够简单。因此，有必要对它进行封装，从而使其更易于使用，封装的方式因人而异，需要我们根据自己的代码习惯进行优化。我的封装也仅限于提供一种简单的思路，以便后来者参考。 如何实现我的项目名为fmdbEncap,托管于Github。在我的代码中， 使用MZDatabaseMana">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mala',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> iOS数据持久化之FMDB的简单封装 | fusugz's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-99016533-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">无忌不悔</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br>
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br>
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br>
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br>
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br>
+            About
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','EyxhdAwWp8_A1x5QZN-5','2.0.0');
+</script>
+
+
+
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c4xffAbS5T9TizWF9yiE','2.0.0');
+</script>
+
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              iOS数据持久化之FMDB的简单封装
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on
+          <time itemprop="dateCreated" datetime="2017-07-03T11:29:11+08:00" content="2017-07-03">
+            2017-07-03
+          </time>
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; In
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                  <span itemprop="name">Objective-C</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>FMDB是iOS平台处理数据持久化的一个强大工具，可以帮助开发者高效地在客户端处理数据，但对于我等初级开发者来说其使用还是不够简单。因此，有必要对它进行封装，从而使其更易于使用，封装的方式因人而异，需要我们根据自己的代码习惯进行优化。我的封装也仅限于提供一种简单的思路，以便后来者参考。</p>
+<h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2><p>我的项目名为<strong>fmdbEncap</strong>,托管于<code>Github</code>。在我的代码中， 使用<code>MZDatabaseManager</code>创建<code>SQLite</code>数据库；在  <code>MZSqliteDao</code>中创建了基于<code>FMDB</code>的一系列方法用于数据库创建、建表，以及数据库的增、删、改、查。</p>
+<p><strong>文末会附上Github项目地址</strong></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>关于如何在你的项目中使用该封装，你只需在引入FMDB的前提下添加本项目中的<code>FMDBEncapsulation</code>文件夹和相关模型数据即可。</p>
+<h2 id="一些说明"><a href="#一些说明" class="headerlink" title="一些说明"></a>一些说明</h2><p>为了使它简单实用，项目中包含<code>fmdb_task</code>和<code>fmdb_category</code>两个表用于举例说明，表中的参数也与代码中实例一一对应。SQLite数据库建立在<code>Documents</code>路径下，对数据库的一切操作基于模拟数据。我会尽量涵盖FMDB基本使用的相关细节，并将持续更新代码。</p>
+<h3 id="SQL-语句"><a href="#SQL-语句" class="headerlink" title="SQL 语句"></a>SQL 语句</h3><p>SQL语句以宏定义的形式在配置文件中写入。</p>
+<ul>
+<li>Table Name</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     TABLE_TASK                   @&quot;FMDB_TASK&quot;</span><br><span class="line"></span><br><span class="line">#define     TABLE_CATEGORY               @&quot;FMDB_CATEGORY&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Create tables</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     SQL_CREATE_TASK              @&quot;CREATE TABLE IF NOT EXISTS FMDB_TASK(\</span><br><span class="line"></span><br><span class="line">                                           TASK_ID integer PRIMARY KEY AUTOINCREMENT NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           ROOM_ID int(11) NOT NULL DEFAULT 0,\</span><br><span class="line"></span><br><span class="line">                                           TASK_INFO int(11),\</span><br><span class="line"></span><br><span class="line">                                           TASK_NUMBER int(4) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           TASK_STATUS int(4) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           TASK_COORDINATE varchar(20),\</span><br><span class="line"></span><br><span class="line">                                           TASK_BEDSIDE varchar(20)\</span><br><span class="line"></span><br><span class="line">                                           );&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_CREATE_CATEGORY          @&quot;CREATE TABLE IF NOT EXISTS FMDB_CATEGORY(\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_ID integer PRIMARY KEY AUTOINCREMENT NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           PARENT_ID int(11) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           LEVEL int(11),\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_NAME nvarchar(45) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_IMG varchar(100),\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_RANK int(11) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_TYPE int(4) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_STATUS int(11) NOT NULL,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_REMARK nvarchar(100)\</span><br><span class="line"></span><br><span class="line">                                           );&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Insert</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     SQL_INSERT_TASK              @&quot;INSERT INTO FMDB_TASK\</span><br><span class="line"></span><br><span class="line">                                           ( ROOM_ID, TASK_INFO, TASK_NUMBER,\</span><br><span class="line"></span><br><span class="line">                                           TASK_STATUS, TASK_COORDINATE, TASK_BEDSIDE)\</span><br><span class="line"></span><br><span class="line">                                           VALUES ( &apos;%d&apos;, &apos;%d&apos;, &apos;%d&apos;, &apos;%d&apos;, &apos;%@&apos;, &apos;%@&apos;);&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_INSERT_CATEGORY          @&quot;INSERT INTO FMDB_CATEGORY\</span><br><span class="line"></span><br><span class="line">                                           ( PARENT_ID, LEVEL, CATEGORY_NAME, CATEGORY_IMG,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_RANK, CATEGORY_TYPE, CATEGORY_STATUS, CATEGORY_REMARK)\</span><br><span class="line"></span><br><span class="line">                                           VALUES ( &apos;%d&apos;, &apos;%d&apos;, &apos;%@&apos;, &apos;%d&apos;, &apos;%d&apos;, &apos;%d&apos;, &apos;%d&apos;, &apos;%@&apos;);&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_INSERT_TASK_PARAMTER     @&quot;INSERT INTO FMDB_TASK\</span><br><span class="line"></span><br><span class="line">                                           ( ROOM_ID, TASK_INFO, TASK_NUMBER,\</span><br><span class="line"></span><br><span class="line">                                           TASK_STATUS, TASK_COORDINATE, TASK_BEDSIDE)\</span><br><span class="line"></span><br><span class="line">                                           VALUES (\</span><br><span class="line"></span><br><span class="line">                                           :roomID, :taskInfo, :taskNumber, :taskStatus, :taskCoordinate, :taskBeside);&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_INSERT_CATEGORY_PARAMTER @&quot;INSERT INTO FMDB_CATEGORY\</span><br><span class="line"></span><br><span class="line">                                           ( PARENT_ID, LEVEL, CATEGORY_NAME, CATEGORY_IMG,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_RANK, CATEGORY_TYPE, CATEGORY_STATUS, CATEGORY_REMARK)\</span><br><span class="line"></span><br><span class="line">                                           VALUES (\</span><br><span class="line"></span><br><span class="line">                                           :prantID, :level, :categoryName, :categoryImage, :categoryRank, :categoryType, :categoryStatus, :categoryRemark);&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Update</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     SQL_UPDATE_TASK              @&quot;UPDATE FMDB_TASK\</span><br><span class="line"></span><br><span class="line">                                           SET ROOM_ID = &apos;%d&apos;, TASK_INFO = &apos;%d&apos;, TASK_NUMBER = &apos;%d&apos;,\</span><br><span class="line"></span><br><span class="line">                                           TASK_STATUS = &apos;%d&apos;, TASK_COORDINATE = &apos;%@&apos;, TASK_BEDSIDE = &apos;%@&apos;\</span><br><span class="line"></span><br><span class="line">                                           WHERE TASK_ID = &apos;%d&apos;;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_UPDATE_CATEGORY          @&quot;UPDATE FMDB_CATEGORY\</span><br><span class="line"></span><br><span class="line">                                           SET PARENT_ID = &apos;%d&apos;, LEVEL = &apos;%d&apos;, CATEGORY_NAME = &apos;%@&apos;,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_IMG = &apos;%d&apos;,CATEGORY_RANK = &apos;%d&apos;, CATEGORY_TYPE = &apos;%d&apos;,\</span><br><span class="line"></span><br><span class="line">                                           CATEGORY_STATUS = &apos;%d&apos;,CATEGORY_REMARK = &apos;%@&apos;\                                           WHERE CATEGORY_ID = &apos;%d&apos;;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Delete</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     SQL_DELETE                   @&quot;DELETE FROM %@ WHERE &apos;%@&apos;=&apos;%d&apos;;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_DELETE_ALL               @&quot;DELETE FROM %@&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Select</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define     SQL_SELECT_ALL               @&quot;SELECT * FROM %@;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define     SQL_SELECT_PARAMTER          @&quot;SELECT * FROM %@ WHERE %@ = &apos;%d&apos;;&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><hr>
+<p>1.Create database</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[[MZDatabaseManager sharedInstance] createDatabaseWithName:@&quot;test&quot;];</span><br></pre></td></tr></table></figure>
+<p>2.Create table</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">self.sqliteDao = [[MZSqliteDao alloc] init];</span><br><span class="line"></span><br><span class="line">// create table</span><br><span class="line"></span><br><span class="line">[self.sqliteDao createTable:TABLE_TASK withSQL:SQL_CREATE_TASK];</span><br><span class="line"></span><br><span class="line">[self.sqliteDao createTable:TABLE_CATEGORY withSQL:SQL_CREATE_CATEGORY];</span><br></pre></td></tr></table></figure>
+<p>3.Insert </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSArray *arrayOfTasks = [MZTask taskMetedata];</span><br><span class="line"></span><br><span class="line">    NSArray *arrayOfCategories = [MZCategory categoryMetedata];</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">      // task: SQL 语句拼接</span><br><span class="line"></span><br><span class="line">    for (MZTask *task in arrayOfTasks) &#123;</span><br><span class="line"></span><br><span class="line">        NSString *SQL_InsertTaskData = [NSString stringWithFormat:SQL_INSERT_TASK,[task.roomID intValue],[task.taskInfo  intValue],[task.taskNumber  intValue],[task.taskStatus  intValue],task.taskCoordinate,task.taskBeside];</span><br><span class="line"></span><br><span class="line">        BOOL success = [self.sqliteDao excuteSQL:SQL_InsertTaskData];</span><br><span class="line"></span><br><span class="line">        if (success) &#123;</span><br><span class="line"></span><br><span class="line">            NSLog(@&quot;insert success!&quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">      // category: 带参</span><br><span class="line"></span><br><span class="line">    for (NSInteger i = 0; i &lt; arrayOfCategories.count; i ++) &#123;</span><br><span class="line"></span><br><span class="line">        MZCategory *category = arrayOfCategories[i];</span><br><span class="line"></span><br><span class="line">        NSDictionary *paramDict = @&#123;@&quot;prantID&quot;:category.parentID,</span><br><span class="line"></span><br><span class="line">                                    @&quot;level&quot;:category.level,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryName&quot;:category.categoryName,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryImage&quot;:category.categoryImg,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryRank&quot;:category.categoryRank,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryType&quot;:category.categoryType,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryStatus&quot;:category.categoryStatus,</span><br><span class="line"></span><br><span class="line">                                    @&quot;categoryRemark&quot;:category.categoryRemark</span><br><span class="line"></span><br><span class="line">                                    &#125;;</span><br><span class="line"></span><br><span class="line">        BOOL success = [self.sqliteDao excuteSQL:SQL_INSERT_CATEGORY_PARAMTER withDicParameter:paramDict];</span><br><span class="line"></span><br><span class="line">        if (success) &#123;</span><br><span class="line"></span><br><span class="line">            NSLog(@&quot;%@ insert success!&quot;,paramDict);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>4.Update</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSString *SQL_UpdateTaskData = [NSString stringWithFormat:SQL_UPDATE_TASK, 10, 10, 10, 10,@&quot;la&quot;,@&quot;la&quot;, 10];</span><br><span class="line"></span><br><span class="line">[self.sqliteDao excuteSQL:SQL_UpdateTaskData];</span><br></pre></td></tr></table></figure>
+<p>5.Delete</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//NSString *SQL_DeleteAllTaskData = [NSString stringWithFormat:SQL_DELETE_ALL,TABLE_TASK];</span><br><span class="line"></span><br><span class="line">// delete one record</span><br><span class="line"></span><br><span class="line">    NSString *SQL_DeleteTaskData = [NSString stringWithFormat:SQL_DELETE,TABLE_TASK,@&quot;TASK_ID&quot;,248];</span><br><span class="line"></span><br><span class="line">    BOOL deleteSuccess = [self.sqliteDao excuteSQL:SQL_DeleteTaskData];</span><br><span class="line"></span><br><span class="line">    if (deleteSuccess) &#123;</span><br><span class="line"></span><br><span class="line">        NSLog(@&quot;delete success!&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>6.Select</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSString *SQL_SelectCategoryData = [NSString stringWithFormat:SQL_SELECT_ALL,TABLE_TASK];</span><br><span class="line"></span><br><span class="line">    NSMutableArray *selectedTasks = [NSMutableArray array];</span><br><span class="line"></span><br><span class="line">    // select *</span><br><span class="line"></span><br><span class="line">    [self.sqliteDao excuteQuerySQL:SQL_SelectCategoryData resultBlock:^(FMResultSet *rsSet) &#123;</span><br><span class="line"></span><br><span class="line">        while ([rsSet next]) &#123;</span><br><span class="line"></span><br><span class="line">            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_ID&quot;] forKey:@&quot;TASK_ID&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;ROOM_ID&quot;] forKey:@&quot;ROOM_ID&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_INFO&quot;] forKey:@&quot;TASK_INFO&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_NUMBER&quot;] forKey:@&quot;TASK_NUMBER&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_STATUS&quot;] forKey:@&quot;TASK_STATUS&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_COORDINATE&quot;] forKey:@&quot;TASK_COORDINATE&quot;];</span><br><span class="line"></span><br><span class="line">            [dict setValue:[rsSet objectForColumnName:@&quot;TASK_BEDSIDE&quot;] forKey:@&quot;TASK_BEDSIDE&quot;];</span><br><span class="line"></span><br><span class="line">            [selectedTasks addObject:dict];</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;selected all tasks:%@&quot;,selectedTasks);</span><br><span class="line"></span><br><span class="line">    // select by ID</span><br><span class="line"></span><br><span class="line">    NSString *SQL_SelectByID = [NSString stringWithFormat:SQL_SELECT_PARAMTER,TABLE_CATEGORY,@&quot;CATEGORY_ID&quot;,6];</span><br><span class="line"></span><br><span class="line">    [self.sqliteDao excuteQuerySQL:SQL_SelectByID resultBlock:^(FMResultSet *rsSet) &#123;</span><br><span class="line"></span><br><span class="line">        while ([rsSet next]) &#123;</span><br><span class="line"></span><br><span class="line">            // save as model data</span><br><span class="line"></span><br><span class="line">            MZCategory *selectedCategory    = [MZCategory new];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryID     = [rsSet objectForColumnName:@&quot;CATEGORY_ID&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.parentID       = [rsSet objectForColumnName:@&quot;PARENT_ID&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.level          = [rsSet objectForColumnName:@&quot;LEVEL&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryName   = [rsSet objectForColumnName:@&quot;CATEGORY_NAME&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryImg    = [rsSet objectForColumnName:@&quot;CATEGORY_IMG&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryRank   = [rsSet objectForColumnName:@&quot;CATEGORY_RANK&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryType   = [rsSet objectForColumnName:@&quot;CATEGORY_TYPE&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryStatus = [rsSet objectForColumnName:@&quot;CATEGORY_STATUS&quot;];</span><br><span class="line"></span><br><span class="line">            selectedCategory.categoryRemark = [rsSet objectForColumnName:@&quot;CATEGORY_REMARK&quot;];</span><br><span class="line"></span><br><span class="line">            NSLog(@&quot;select by categoryID:%d,parentID:%d,level:%d,categoryName:%@,categoryImg:%@,categoryRank:%d,categoryType:%d,categoryStatus:%d,categoryRemark:%@&quot;,[selectedCategory.categoryID intValue],[selectedCategory.parentID intValue],[selectedCategory.level intValue],selectedCategory.categoryName,selectedCategory.categoryImg,[selectedCategory.categoryRank intValue],[selectedCategory.categoryType intValue],[selectedCategory.categoryStatus intValue],selectedCategory.categoryRemark);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="说在后面"><a href="#说在后面" class="headerlink" title="说在后面"></a>说在后面</h2><p>本人技术浅薄，对数据库的理解也不够深入透彻，在此写下微末经验，以期为后来之初学者提供些许便利，若有一人觉得此项目并非通篇胡言，也不枉我码字之劳累，最后奉上<a href="https://github.com/fusugz/fmdbEncap" target="_blank" rel="noopener">Github项目地址</a>，如需参考不妨前往下载。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fmdb/" rel="tag">#fmdb</a>
+          
+            <a href="/tags/database/" rel="tag">#database</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/10/Objective-c-3-features/" rel="prev">Objective-c_3_features</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/note-of-WWDC17/" rel="next">不容错过的WWDC17全程记录</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div>
+      
+        <style type="text/css">
+
+    .donate_bar {
+        text-align: center;
+        margin-top : 5%;
+    }
+
+    .donate_bar.hidden {
+        display:none;
+    }
+/*
+    .donate_bar a.btn_donate {
+        display: inline-block;
+        width: 82px;
+        height: 82px;
+        margin-left:auto;
+        margin-right:auto;
+
+        background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat;
+        _background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat; 
+
+        -webkit-transition: background 0s;
+        -moz-transition: background 0s;
+        -o-transition: background 0s;
+        -ms-transition: background 0s;
+        transition: background 0s;
+    }
+*/
+    .donate_bar a.btn_donate:hover { 
+        // background-position: 0px -82px;
+        color: #87daff;
+    }
+
+    .donate_bar .donate_txt {
+        display: block;
+        color: #9d9d9d;
+        font: 14px/2 "Microsoft Yahei";
+    }
+
+    .bold { 
+        font-weight: bold; 
+    }
+
+    .post-donate a {
+        border-bottom: 0px;
+    }
+
+    #donate_guide table {
+        border: none;
+    }
+
+    #donate_guide td {
+        border-bottom: none;
+        border-right: none;
+        // background: #333333;
+        valign: top;
+    }
+
+</style>
+
+
+
+    
+
+    <div class="post-donate">
+        <div id="donate_board" class="donate_bar center">
+              <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏">赏</a>
+              <span id="donate_txt" class="donate_txt">
+                   
+                        如果你觉得我的文章有用，请随意打赏
+                   
+              </span>
+            <br>
+        </div>  
+  
+        <div id="donate_guide" class="donate_bar center hidden">
+            <!--
+            
+                <a href="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="支付宝打赏" class="fancybox" rel="article0" 
+                    style="float:left;margin-left:25%;margin-right:10px;">
+                    <img src="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="" height="164px" width="164px">
+                </a> 
+              
+
+            
+                <a href="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="微信打赏" class="fancybox" rel="article0"
+                    style="margin-right:30%">
+                    <img src="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="" height="164px" width="164px">
+                </a>
+            
+            -->
+            <table>
+                <tr>
+                    <td>
+                        
+                            <a href="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="支付宝打赏" class="fancybox" rel="article0" style="float:left;margin-left:25%;margin-right:10px;">
+                                <img src="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title height="164px" width="164px">
+                            </a> 
+                         
+                    </td>
+                    <td>
+                        
+                            <a href="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="微信打赏" class="fancybox" rel="article0" style="margin-right:30%">
+                                <img src="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title height="164px" width="164px">
+                            </a>
+                        
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('btn_donate').onclick = function() {
+                $('#donate_board').addClass('hidden');
+                // $('#donate_guide').removeClass('hidden');
+                $('#donate_guide').show(2000);
+            }
+
+        </script>
+    </div>
+
+    
+
+
+      
+    </div>
+
+    <div class="post-spread">
+      
+        <div class="bdsharebuttonbox">
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="fusugz" itemprop="image">
+          <p class="site-author-name" itemprop="name">fusugz</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">选择远方，风雨兼程。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Fusugz" target="_blank">GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2712958375" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/murphy.zheng.ying" target="_blank">Facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/5d6941ea3713" target="_blank">jianshu</a>
+              </span>
+            
+          
+        </div>
+
+        <div class="links-of-friendly motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="https://fusugz.github.io/resume" target="_blank">Resume</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘由"><span class="nav-number">1.</span> <span class="nav-text">缘由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现"><span class="nav-number">2.</span> <span class="nav-text">如何实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">3.</span> <span class="nav-text">如何使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些说明"><span class="nav-number">4.</span> <span class="nav-text">一些说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-语句"><span class="nav-number">4.1.</span> <span class="nav-text">SQL 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例说明"><span class="nav-number">4.2.</span> <span class="nav-text">举例说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说在后面"><span class="nav-number">5.</span> <span class="nav-text">说在后面</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy; &nbsp;  2011 - 
+  <span itemprop="copyrightYear">2019
+  </span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fusugz
+  </span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme by <a class="theme-link" href="http://blog.idhyt.com">idhyt</a>.<a class="theme-link" href="https://github.com/idhyt/hexo-theme-next/tree/magiclamp">Mala</a>
+</div>
+
+<!-- busuanzi -->
+
+  <div class>
+    <div class="theme-info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <span id="busuanzi_container_site_pv">
+        本站总访问量<a class="theme-link"><span id="busuanzi_value_site_pv"></span></a>次
+    </span>
+</div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','EyxhdAwWp8_A1x5QZN-5','2.0.0');
+</script>
+
+  </div>
+
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

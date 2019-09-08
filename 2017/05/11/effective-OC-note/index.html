@@ -1,0 +1,984 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mala">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="baidu-site-verification" content="EndgqNGYF2">
+
+
+  <meta name="google-site-verification" content="oeUgNV5GJ_GmdqtmSN3dU4Q_N9S1cgF0G_0DfWdEpWM">
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1">
+
+
+    <meta name="description" content="选择远方，风雨兼程。">
+
+
+
+  <meta name="keywords" content="Objective-C,effective,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="fusugz's blog" type="application/atom+xml">
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1">
+
+
+<meta name="description" content="Chapter 1 熟悉 Objective-C 了解Objective-C语言的起源 Objective-C为C语言添加了面向对象特性，使其超集。Objective-C使用动态绑定的消息结构，也就是说，在运行才会检查对象类型。接收一条消息之后，究竟应执行何种代码，由运行期换就而非编译器来决定。  理解C语言的核心概念有助于写好Objective-C程序。尤其要掌握内存模型与指针。    在类的头">
+<meta name="keywords" content="Objective-C,effective">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Objective-C 2.0 Note">
+<meta property="og:url" content="https://fusugz.github.io/2017/05/11/effective-OC-note/index.html">
+<meta property="og:site_name" content="fusugz&#39;s blog">
+<meta property="og:description" content="Chapter 1 熟悉 Objective-C 了解Objective-C语言的起源 Objective-C为C语言添加了面向对象特性，使其超集。Objective-C使用动态绑定的消息结构，也就是说，在运行才会检查对象类型。接收一条消息之后，究竟应执行何种代码，由运行期换就而非编译器来决定。  理解C语言的核心概念有助于写好Objective-C程序。尤其要掌握内存模型与指针。    在类的头">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-05-18T08:03:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Effective Objective-C 2.0 Note">
+<meta name="twitter:description" content="Chapter 1 熟悉 Objective-C 了解Objective-C语言的起源 Objective-C为C语言添加了面向对象特性，使其超集。Objective-C使用动态绑定的消息结构，也就是说，在运行才会检查对象类型。接收一条消息之后，究竟应执行何种代码，由运行期换就而非编译器来决定。  理解C语言的核心概念有助于写好Objective-C程序。尤其要掌握内存模型与指针。    在类的头">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mala',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> Effective Objective-C 2.0 Note | fusugz's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-99016533-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">无忌不悔</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br>
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br>
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br>
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br>
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br>
+            About
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','EyxhdAwWp8_A1x5QZN-5','2.0.0');
+</script>
+
+
+
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c4xffAbS5T9TizWF9yiE','2.0.0');
+</script>
+
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Effective Objective-C 2.0 Note
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted on
+          <time itemprop="dateCreated" datetime="2017-05-11T11:00:00+08:00" content="2017-05-11">
+            2017-05-11
+          </time>
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; In
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                  <span itemprop="name">Objective-C</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h1 id="Chapter-1-熟悉-Objective-C"><a href="#Chapter-1-熟悉-Objective-C" class="headerlink" title="Chapter 1 熟悉 Objective-C"></a>Chapter 1 熟悉 Objective-C</h1><hr>
+<h2 id="了解Objective-C语言的起源"><a href="#了解Objective-C语言的起源" class="headerlink" title="了解Objective-C语言的起源"></a>了解Objective-C语言的起源</h2><ul>
+<li><p>Objective-C为C语言添加了面向对象特性，使其超集。Objective-C使用动态绑定的消息结构，也就是说，在运行才会检查对象类型。接收一条消息之后，究竟应执行何种代码，由运行期换就而非编译器来决定。</p>
+</li>
+<li><p>理解C语言的核心概念有助于写好Objective-C程序。尤其要掌握内存模型与指针。 </p>
+</li>
+</ul>
+<h2 id="在类的头文件中尽量少引入其它头文件"><a href="#在类的头文件中尽量少引入其它头文件" class="headerlink" title="在类的头文件中尽量少引入其它头文件"></a>在类的头文件中尽量少引入其它头文件</h2><ul>
+<li><p>除非确有必要，否则不要引入头文件。一般来说，应在某个类的头文件中使用向前声明来提及别的类，并在实现文件中引入那些类的头文件。这样做可以尽量降低类之间的耦合（coupling）。</p>
+</li>
+<li><p>有时无法使用向前声明, 如要声明某个类遵循一项协议。这种情况下，尽量把“该类遵循某协议”的这条声明移至“class-continuation分类”中。如果不行的话，就把协议单独放在一个头文件中，然后将其引入。</p>
+</li>
+</ul>
+<h2 id="多用字面量方法，少用与之等价的方法"><a href="#多用字面量方法，少用与之等价的方法" class="headerlink" title="多用字面量方法，少用与之等价的方法"></a>多用字面量方法，少用与之等价的方法</h2><ul>
+<li><p>应该使用字面量语法来创建字符串、数值、数组、字典。与创建此类对象的常规方法相比，这么做更加简明扼要。</p>
+</li>
+<li><p>应该通过取下标操作来访问数组下标或字典中的键所对应的元素。</p>
+</li>
+<li><p>用字面量语法创建数组或字典时，若值中有nil，则会抛出异常。因此，务必确保值里不含nil。</p>
+</li>
+</ul>
+<h2 id="多用类型常量，少用-define预处理指令"><a href="#多用类型常量，少用-define预处理指令" class="headerlink" title="多用类型常量，少用#define预处理指令"></a>多用类型常量，少用#define预处理指令</h2><ul>
+<li><p>不要用预处理指令定义常量。这样定义出来的常量不含类型信息，编译器只会在编译前据此执行查找与替换操作。即使有人重新定义了常量值，编译器也不会产生警告信息，这将导致应用程序中的常量值不一致。</p>
+</li>
+<li><p>在实现文件中使用static const来定义“只在编译单元内可见的常量”（translation-unit-specific constant）。由于此类常量不会在全局符号表中，所以无需为其名称前加前缀。</p>
+</li>
+<li><p>在头文件中使用extern来声明全局变量，并在相关实现文件中定义其值。这种常量要出现在全局符号表中，所以其名称应加以区隔，通常用与之相关的类名做前缀。</p>
+</li>
+</ul>
+<h2 id="用枚举表示状态、选项、状态码"><a href="#用枚举表示状态、选项、状态码" class="headerlink" title="用枚举表示状态、选项、状态码"></a>用枚举表示状态、选项、状态码</h2><ul>
+<li><p>应该用枚举来表示状态机的状态、传递给方法的选项以及状态码等值，给这些值起个易懂的名字。</p>
+</li>
+<li><p>如果把传递给某个方法的选项表示为枚举类型，而多个选项又可同时使用，那么就将各选项值定义为2的幂，以便通过按位或操作将其组合起来。</p>
+</li>
+<li><p>用<code>NS_ENUM</code>与<code>NS_OPUTIONS</code>宏来定义枚举类型，并指明其底层数据类型。这样做可以确保枚举是用开发者所选的底层数据类型实现出来的，而不会采用编译器所选的类型。</p>
+</li>
+<li><p>在处理枚举类型的<code>switch</code>语句中不要实现<code>default</code>分支。这样的话，加入新枚举之后，编译器就会提示开发者：<code>switch</code>语句并未处理所有枚举。</p>
+</li>
+</ul>
+<hr>
+<h1 id="Chapter-2-对象、消息、运行期"><a href="#Chapter-2-对象、消息、运行期" class="headerlink" title="Chapter 2 对象、消息、运行期"></a>Chapter 2 对象、消息、运行期</h1><h2 id="理解“property”这一概念"><a href="#理解“property”这一概念" class="headerlink" title="理解“property”这一概念"></a>理解“property”这一概念</h2><ul>
+<li><p>可以用<code>@property</code>语法来定义对象中所封装的数据。</p>
+</li>
+<li><p>通过“特质”来指定存储数据所需的正确语义。</p>
+</li>
+<li><p>在设置属性所对应的实例变量时，一定要遵从该属性所声明的语义。</p>
+</li>
+</ul>
+<h2 id="在对象内部尽量直接访问实例变量"><a href="#在对象内部尽量直接访问实例变量" class="headerlink" title="在对象内部尽量直接访问实例变量"></a>在对象内部尽量直接访问实例变量</h2><ul>
+<li><p>在对象内部读取数据时，应直接通过实例变量来读，而写入数据时，则应通过属性来写。</p>
+</li>
+<li><p>在初始化方法及<code>dealloc</code>方法中，总是应该直接通过实例变量来读写数据。</p>
+</li>
+<li><p>有时会使用懒加载技术配置某份数据，在这种情况下，需要通过属性来读取数据。</p>
+</li>
+</ul>
+<h2 id="理解“对象同等性”这一概念"><a href="#理解“对象同等性”这一概念" class="headerlink" title="理解“对象同等性”这一概念"></a>理解“对象同等性”这一概念</h2><ul>
+<li><p>若想检测对象的同等性，请提供<code>isEqual:</code>和<code>hash</code>方法。</p>
+</li>
+<li><p>相同的对象必须具有相同的哈希码，但是两个哈希码相同的对象却未必相同。</p>
+</li>
+<li><p>不要盲目地逐个检测每条属性，而是应该依照具体需求来制定检测方案。</p>
+</li>
+<li><p>编写hash方法时，应该使用计算速度快而且哈希码碰撞几率低的算法。</p>
+</li>
+</ul>
+<h2 id="以“类族模式”隐藏实现细节"><a href="#以“类族模式”隐藏实现细节" class="headerlink" title="以“类族模式”隐藏实现细节"></a>以“类族模式”隐藏实现细节</h2><ul>
+<li><p>类族模式可以把实现细节隐藏在一套简单的公共接口后面。</p>
+</li>
+<li><p>系统框架中经常使用类族。</p>
+</li>
+<li><p>从类族的公共抽象基类时要当心，若有开发文档，则应首先阅读。</p>
+</li>
+</ul>
+<h2 id="在既有类中使用关联对象存放自定义数据"><a href="#在既有类中使用关联对象存放自定义数据" class="headerlink" title="在既有类中使用关联对象存放自定义数据"></a>在既有类中使用关联对象存放自定义数据</h2><ul>
+<li><p>可以通过“关联对象”机制来把两个对象连起来。</p>
+</li>
+<li><p>定义关联对象时可指定内存管理语义，用以模仿定义属性时所采用的“拥有关系”与“非拥有关系”。</p>
+</li>
+<li><p>只有在其他做法不可行时才应选用关联对象，因为这种做法通常会引入难于查找的bug。</p>
+</li>
+</ul>
+<h2 id="理解objc-msgSend的作用"><a href="#理解objc-msgSend的作用" class="headerlink" title="理解objc_msgSend的作用"></a>理解objc_msgSend的作用</h2><ul>
+<li><p>消息由接受者、选择子及参数构成。给某对象“发送消息(invoke a message)”也就相当于在该对象上“调用方法(call a method)”。</p>
+</li>
+<li><p>发给某对象的全部消息都要由“动态消息派发系统(dymatic message dispatch system)”来处理，该系统会查出对应的方法，并执行其代码。</p>
+</li>
+</ul>
+<h2 id="理解消息转发机制"><a href="#理解消息转发机制" class="headerlink" title="理解消息转发机制"></a>理解消息转发机制</h2><ul>
+<li><p>若对象无法响应某个选择子，则进入消息转发流程。</p>
+</li>
+<li><p>通过运行期的动态方法解析功能，我们可以在需要用到某个方法时再将其加入类中。</p>
+</li>
+<li><p>对象可以把其无法解读的某些选择子转交给其他对象来处理。</p>
+</li>
+<li><p>经过上述两步之后，如果还是没有办法处理选择子，那就启动完整的消息转发机制。</p>
+</li>
+</ul>
+<h2 id="用“方法调配技术”调试“黑盒方法”"><a href="#用“方法调配技术”调试“黑盒方法”" class="headerlink" title="用“方法调配技术”调试“黑盒方法”"></a>用“方法调配技术”调试“黑盒方法”</h2><ul>
+<li><p>在运行期，可以向类中新增或替换选择子所对应的方法实现。</p>
+</li>
+<li><p>使用另一份实现来替换原有的方法实现，这道工序叫做“方法掉配”，开发者常用此技术向原有实现中添加新功能。</p>
+</li>
+<li><p>一般来说，只有调试程序的时候才需要在运行期修改方法实现，这种做法不宜滥用。</p>
+</li>
+</ul>
+<h2 id="理解“类对象”的用意"><a href="#理解“类对象”的用意" class="headerlink" title="理解“类对象”的用意"></a>理解“类对象”的用意</h2><ul>
+<li><p>每个实例都有一个指向Class对象的指针，用以表明其类型，而这些Class对象则构成了类的继承体系。</p>
+</li>
+<li><p>如果对象类型无法在编译期确定，那么就应该使用类型信息查询方法来探知。</p>
+</li>
+<li><p>尽量使用类型信息查询方法来确定对象类型，而不要直接比较类对象，因为某些对象可能实现了消息转发功能。</p>
+</li>
+</ul>
+<h1 id="Chapter-3-接口与API设计"><a href="#Chapter-3-接口与API设计" class="headerlink" title="Chapter 3 接口与API设计"></a>Chapter 3 接口与API设计</h1><h2 id="用前缀避免命名空间冲突"><a href="#用前缀避免命名空间冲突" class="headerlink" title="用前缀避免命名空间冲突"></a>用前缀避免命名空间冲突</h2><ul>
+<li><p>选择你的公司、应用程序或二者有关联之名称作为类名的前缀，并在所有代码中均使用这一前缀。</p>
+</li>
+<li><p>若自己所开发的程序库中用到了第三方库，则应为其中的名称加上前缀。</p>
+</li>
+</ul>
+<h2 id="提供“全能初始化方法”"><a href="#提供“全能初始化方法”" class="headerlink" title="提供“全能初始化方法”"></a>提供“全能初始化方法”</h2><ul>
+<li><p>在类中提高一个全能初始化方法，并于文档里指明。其他初始化方法均应调用此方法。</p>
+</li>
+<li><p>若全能初始化方法与超类不同，则需覆写超类中对应方法。</p>
+</li>
+<li><p>如果超类的初始化方法不适用于子类，那么应该覆写这个超类方法，并在其中抛出异常。</p>
+</li>
+</ul>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/effective/" rel="tag">#effective</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/11/Objective-C-code-rule/" rel="prev">Objective-C编码规范</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div>
+      
+        <style type="text/css">
+
+    .donate_bar {
+        text-align: center;
+        margin-top : 5%;
+    }
+
+    .donate_bar.hidden {
+        display:none;
+    }
+/*
+    .donate_bar a.btn_donate {
+        display: inline-block;
+        width: 82px;
+        height: 82px;
+        margin-left:auto;
+        margin-right:auto;
+
+        background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat;
+        _background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat; 
+
+        -webkit-transition: background 0s;
+        -moz-transition: background 0s;
+        -o-transition: background 0s;
+        -ms-transition: background 0s;
+        transition: background 0s;
+    }
+*/
+    .donate_bar a.btn_donate:hover { 
+        // background-position: 0px -82px;
+        color: #87daff;
+    }
+
+    .donate_bar .donate_txt {
+        display: block;
+        color: #9d9d9d;
+        font: 14px/2 "Microsoft Yahei";
+    }
+
+    .bold { 
+        font-weight: bold; 
+    }
+
+    .post-donate a {
+        border-bottom: 0px;
+    }
+
+    #donate_guide table {
+        border: none;
+    }
+
+    #donate_guide td {
+        border-bottom: none;
+        border-right: none;
+        // background: #333333;
+        valign: top;
+    }
+
+</style>
+
+
+
+    
+
+    <div class="post-donate">
+        <div id="donate_board" class="donate_bar center">
+              <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏">赏</a>
+              <span id="donate_txt" class="donate_txt">
+                   
+                        如果你觉得我的文章有用，请随意打赏
+                   
+              </span>
+            <br>
+        </div>  
+  
+        <div id="donate_guide" class="donate_bar center hidden">
+            <!--
+            
+                <a href="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="支付宝打赏" class="fancybox" rel="article0" 
+                    style="float:left;margin-left:25%;margin-right:10px;">
+                    <img src="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="" height="164px" width="164px">
+                </a> 
+              
+
+            
+                <a href="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="微信打赏" class="fancybox" rel="article0"
+                    style="margin-right:30%">
+                    <img src="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="" height="164px" width="164px">
+                </a>
+            
+            -->
+            <table>
+                <tr>
+                    <td>
+                        
+                            <a href="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title="支付宝打赏" class="fancybox" rel="article0" style="float:left;margin-left:25%;margin-right:10px;">
+                                <img src="http://oprnxh1p7.bkt.clouddn.com/alipay.jpg" title height="164px" width="164px">
+                            </a> 
+                         
+                    </td>
+                    <td>
+                        
+                            <a href="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title="微信打赏" class="fancybox" rel="article0" style="margin-right:30%">
+                                <img src="http://oprnxh1p7.bkt.clouddn.com/weixinpay.jpg" title height="164px" width="164px">
+                            </a>
+                        
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <script type="text/javascript">
+            document.getElementById('btn_donate').onclick = function() {
+                $('#donate_board').addClass('hidden');
+                // $('#donate_guide').removeClass('hidden');
+                $('#donate_guide').show(2000);
+            }
+
+        </script>
+    </div>
+
+    
+
+
+      
+    </div>
+
+    <div class="post-spread">
+      
+        <div class="bdsharebuttonbox">
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="fusugz" itemprop="image">
+          <p class="site-author-name" itemprop="name">fusugz</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">选择远方，风雨兼程。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Fusugz" target="_blank">GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2712958375" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/murphy.zheng.ying" target="_blank">Facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/5d6941ea3713" target="_blank">jianshu</a>
+              </span>
+            
+          
+        </div>
+
+        <div class="links-of-friendly motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="https://fusugz.github.io/resume" target="_blank">Resume</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+            </a>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-1-熟悉-Objective-C"><span class="nav-number">1.</span> <span class="nav-text">Chapter 1 熟悉 Objective-C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Objective-C语言的起源"><span class="nav-number">1.1.</span> <span class="nav-text">了解Objective-C语言的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在类的头文件中尽量少引入其它头文件"><span class="nav-number">1.2.</span> <span class="nav-text">在类的头文件中尽量少引入其它头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多用字面量方法，少用与之等价的方法"><span class="nav-number">1.3.</span> <span class="nav-text">多用字面量方法，少用与之等价的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多用类型常量，少用-define预处理指令"><span class="nav-number">1.4.</span> <span class="nav-text">多用类型常量，少用#define预处理指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用枚举表示状态、选项、状态码"><span class="nav-number">1.5.</span> <span class="nav-text">用枚举表示状态、选项、状态码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-2-对象、消息、运行期"><span class="nav-number">2.</span> <span class="nav-text">Chapter 2 对象、消息、运行期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解“property”这一概念"><span class="nav-number">2.1.</span> <span class="nav-text">理解“property”这一概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在对象内部尽量直接访问实例变量"><span class="nav-number">2.2.</span> <span class="nav-text">在对象内部尽量直接访问实例变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解“对象同等性”这一概念"><span class="nav-number">2.3.</span> <span class="nav-text">理解“对象同等性”这一概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以“类族模式”隐藏实现细节"><span class="nav-number">2.4.</span> <span class="nav-text">以“类族模式”隐藏实现细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在既有类中使用关联对象存放自定义数据"><span class="nav-number">2.5.</span> <span class="nav-text">在既有类中使用关联对象存放自定义数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解objc-msgSend的作用"><span class="nav-number">2.6.</span> <span class="nav-text">理解objc_msgSend的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解消息转发机制"><span class="nav-number">2.7.</span> <span class="nav-text">理解消息转发机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用“方法调配技术”调试“黑盒方法”"><span class="nav-number">2.8.</span> <span class="nav-text">用“方法调配技术”调试“黑盒方法”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解“类对象”的用意"><span class="nav-number">2.9.</span> <span class="nav-text">理解“类对象”的用意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-3-接口与API设计"><span class="nav-number">3.</span> <span class="nav-text">Chapter 3 接口与API设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用前缀避免命名空间冲突"><span class="nav-number">3.1.</span> <span class="nav-text">用前缀避免命名空间冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供“全能初始化方法”"><span class="nav-number">3.2.</span> <span class="nav-text">提供“全能初始化方法”</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy; &nbsp;  2011 - 
+  <span itemprop="copyrightYear">2019
+  </span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fusugz
+  </span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme by <a class="theme-link" href="http://blog.idhyt.com">idhyt</a>.<a class="theme-link" href="https://github.com/idhyt/hexo-theme-next/tree/magiclamp">Mala</a>
+</div>
+
+<!-- busuanzi -->
+
+  <div class>
+    <div class="theme-info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <span id="busuanzi_container_site_pv">
+        本站总访问量<a class="theme-link"><span id="busuanzi_value_site_pv"></span></a>次
+    </span>
+</div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','EyxhdAwWp8_A1x5QZN-5','2.0.0');
+</script>
+
+  </div>
+
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
