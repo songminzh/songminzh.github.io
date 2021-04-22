@@ -5,12 +5,12 @@
   <subtitle>无忌不悔</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://fusugz.github.io/"/>
+  <link href="https://songminzh.github.io/"/>
   <updated>2020-05-14T14:01:17.044Z</updated>
-  <id>https://fusugz.github.io/</id>
+  <id>https://songminzh.github.io/</id>
   
   <author>
-    <name>fusugz</name>
+    <name>songmin</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Unity引用UIWebView问题解决</title>
-    <link href="https://fusugz.github.io/2020/05/14/unity-uiwebview/"/>
-    <id>https://fusugz.github.io/2020/05/14/unity-uiwebview/</id>
+    <link href="https://songminzh.github.io/2020/05/14/unity-uiwebview/"/>
+    <id>https://songminzh.github.io/2020/05/14/unity-uiwebview/</id>
     <published>2020-05-14T13:54:47.000Z</published>
     <updated>2020-05-14T14:01:17.044Z</updated>
     
@@ -34,17 +34,17 @@
     
     </summary>
     
-      <category term="UIWebView" scheme="https://fusugz.github.io/categories/UIWebView/"/>
+      <category term="UIWebView" scheme="https://songminzh.github.io/categories/UIWebView/"/>
     
     
-      <category term="unity" scheme="https://fusugz.github.io/tags/unity/"/>
+      <category term="unity" scheme="https://songminzh.github.io/tags/unity/"/>
     
   </entry>
   
   <entry>
     <title>面向接口编程</title>
-    <link href="https://fusugz.github.io/2019/09/08/face-to-protocol/"/>
-    <id>https://fusugz.github.io/2019/09/08/face-to-protocol/</id>
+    <link href="https://songminzh.github.io/2019/09/08/face-to-protocol/"/>
+    <id>https://songminzh.github.io/2019/09/08/face-to-protocol/</id>
     <published>2019-09-08T12:47:21.000Z</published>
     <updated>2019-09-08T12:48:48.087Z</updated>
     
@@ -60,17 +60,17 @@
     
     </summary>
     
-      <category term="code-mind" scheme="https://fusugz.github.io/categories/code-mind/"/>
+      <category term="code-mind" scheme="https://songminzh.github.io/categories/code-mind/"/>
     
     
-      <category term="protocol" scheme="https://fusugz.github.io/tags/protocol/"/>
+      <category term="protocol" scheme="https://songminzh.github.io/tags/protocol/"/>
     
   </entry>
   
   <entry>
     <title>ARKit应用之导航</title>
-    <link href="https://fusugz.github.io/2019/02/19/arkit-navigation/"/>
-    <id>https://fusugz.github.io/2019/02/19/arkit-navigation/</id>
+    <link href="https://songminzh.github.io/2019/02/19/arkit-navigation/"/>
+    <id>https://songminzh.github.io/2019/02/19/arkit-navigation/</id>
     <published>2019-02-19T06:39:03.000Z</published>
     <updated>2019-02-19T06:43:12.000Z</updated>
     
@@ -86,16 +86,16 @@
     </summary>
     
     
-      <category term="ARKit" scheme="https://fusugz.github.io/tags/ARKit/"/>
+      <category term="ARKit" scheme="https://songminzh.github.io/tags/ARKit/"/>
     
-      <category term="Navigation" scheme="https://fusugz.github.io/tags/Navigation/"/>
+      <category term="Navigation" scheme="https://songminzh.github.io/tags/Navigation/"/>
     
   </entry>
   
   <entry>
     <title>EasyAR应用之iOS原生视频播放【脱卡】</title>
-    <link href="https://fusugz.github.io/2018/12/04/easyar-tuoka/"/>
-    <id>https://fusugz.github.io/2018/12/04/easyar-tuoka/</id>
+    <link href="https://songminzh.github.io/2018/12/04/easyar-tuoka/"/>
+    <id>https://songminzh.github.io/2018/12/04/easyar-tuoka/</id>
     <published>2018-12-04T13:11:34.000Z</published>
     <updated>2018-12-24T13:43:10.000Z</updated>
     
@@ -110,17 +110,17 @@
     
     </summary>
     
-      <category term="EasyAR" scheme="https://fusugz.github.io/categories/EasyAR/"/>
+      <category term="EasyAR" scheme="https://songminzh.github.io/categories/EasyAR/"/>
     
     
-      <category term="EasyAR" scheme="https://fusugz.github.io/tags/EasyAR/"/>
+      <category term="EasyAR" scheme="https://songminzh.github.io/tags/EasyAR/"/>
     
   </entry>
   
   <entry>
     <title>ARKit应用之识别图像播放视频</title>
-    <link href="https://fusugz.github.io/2018/11/20/recognizing-images-to-play-video/"/>
-    <id>https://fusugz.github.io/2018/11/20/recognizing-images-to-play-video/</id>
+    <link href="https://songminzh.github.io/2018/11/20/recognizing-images-to-play-video/"/>
+    <id>https://songminzh.github.io/2018/11/20/recognizing-images-to-play-video/</id>
     <published>2018-11-20T13:23:50.000Z</published>
     <updated>2018-11-20T13:39:50.000Z</updated>
     
@@ -135,17 +135,17 @@
     
     </summary>
     
-      <category term="ARKit" scheme="https://fusugz.github.io/categories/ARKit/"/>
+      <category term="ARKit" scheme="https://songminzh.github.io/categories/ARKit/"/>
     
     
-      <category term="ARKit" scheme="https://fusugz.github.io/tags/ARKit/"/>
+      <category term="ARKit" scheme="https://songminzh.github.io/tags/ARKit/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之Notification Center</title>
-    <link href="https://fusugz.github.io/2018/11/09/notification-center/"/>
-    <id>https://fusugz.github.io/2018/11/09/notification-center/</id>
+    <link href="https://songminzh.github.io/2018/11/09/notification-center/"/>
+    <id>https://songminzh.github.io/2018/11/09/notification-center/</id>
     <published>2018-11-09T02:53:51.000Z</published>
     <updated>2018-11-09T02:56:08.000Z</updated>
     
@@ -160,17 +160,17 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/categories/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/categories/Objective-C/"/>
     
     
-      <category term="NSNotificationCenter" scheme="https://fusugz.github.io/tags/NSNotificationCenter/"/>
+      <category term="NSNotificationCenter" scheme="https://songminzh.github.io/tags/NSNotificationCenter/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之事件传递响应链</title>
-    <link href="https://fusugz.github.io/2018/11/09/responder-chain/"/>
-    <id>https://fusugz.github.io/2018/11/09/responder-chain/</id>
+    <link href="https://songminzh.github.io/2018/11/09/responder-chain/"/>
+    <id>https://songminzh.github.io/2018/11/09/responder-chain/</id>
     <published>2018-11-09T02:48:55.000Z</published>
     <updated>2018-11-09T02:53:28.000Z</updated>
     
@@ -185,17 +185,17 @@
     
     </summary>
     
-      <category term="iOS" scheme="https://fusugz.github.io/categories/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/categories/iOS/"/>
     
     
-      <category term="responder-chain" scheme="https://fusugz.github.io/tags/responder-chain/"/>
+      <category term="responder-chain" scheme="https://songminzh.github.io/tags/responder-chain/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之多线程技术</title>
-    <link href="https://fusugz.github.io/2018/11/09/multithreading/"/>
-    <id>https://fusugz.github.io/2018/11/09/multithreading/</id>
+    <link href="https://songminzh.github.io/2018/11/09/multithreading/"/>
+    <id>https://songminzh.github.io/2018/11/09/multithreading/</id>
     <published>2018-11-09T02:44:05.000Z</published>
     <updated>2018-11-09T02:45:32.000Z</updated>
     
@@ -211,14 +211,14 @@
     </summary>
     
     
-      <category term="multithreading" scheme="https://fusugz.github.io/tags/multithreading/"/>
+      <category term="multithreading" scheme="https://songminzh.github.io/tags/multithreading/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之修饰符的使用和区别</title>
-    <link href="https://fusugz.github.io/2018/11/09/oc-modifiers/"/>
-    <id>https://fusugz.github.io/2018/11/09/oc-modifiers/</id>
+    <link href="https://songminzh.github.io/2018/11/09/oc-modifiers/"/>
+    <id>https://songminzh.github.io/2018/11/09/oc-modifiers/</id>
     <published>2018-11-09T02:38:51.000Z</published>
     <updated>2018-11-09T02:43:12.000Z</updated>
     
@@ -233,17 +233,17 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/categories/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/categories/Objective-C/"/>
     
     
-      <category term="modifiers" scheme="https://fusugz.github.io/tags/modifiers/"/>
+      <category term="modifiers" scheme="https://songminzh.github.io/tags/modifiers/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之ViewController的生命周期</title>
-    <link href="https://fusugz.github.io/2018/11/09/vc-life-circle/"/>
-    <id>https://fusugz.github.io/2018/11/09/vc-life-circle/</id>
+    <link href="https://songminzh.github.io/2018/11/09/vc-life-circle/"/>
+    <id>https://songminzh.github.io/2018/11/09/vc-life-circle/</id>
     <published>2018-11-09T02:33:46.000Z</published>
     <updated>2018-11-09T02:35:06.000Z</updated>
     
@@ -258,17 +258,17 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/categories/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/categories/Objective-C/"/>
     
     
-      <category term="lifeCircle" scheme="https://fusugz.github.io/tags/lifeCircle/"/>
+      <category term="lifeCircle" scheme="https://songminzh.github.io/tags/lifeCircle/"/>
     
   </entry>
   
   <entry>
     <title>iOS基础知识整理之应用的生命周期</title>
-    <link href="https://fusugz.github.io/2018/11/09/app-life-circle/"/>
-    <id>https://fusugz.github.io/2018/11/09/app-life-circle/</id>
+    <link href="https://songminzh.github.io/2018/11/09/app-life-circle/"/>
+    <id>https://songminzh.github.io/2018/11/09/app-life-circle/</id>
     <published>2018-11-09T02:28:53.000Z</published>
     <updated>2018-11-09T02:30:22.000Z</updated>
     
@@ -283,17 +283,17 @@
     
     </summary>
     
-      <category term="iOS" scheme="https://fusugz.github.io/categories/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/categories/iOS/"/>
     
     
-      <category term="application" scheme="https://fusugz.github.io/tags/application/"/>
+      <category term="application" scheme="https://songminzh.github.io/tags/application/"/>
     
   </entry>
   
   <entry>
     <title>Socket简析与iOS实现</title>
-    <link href="https://fusugz.github.io/2018/11/09/socket-ios-use/"/>
-    <id>https://fusugz.github.io/2018/11/09/socket-ios-use/</id>
+    <link href="https://songminzh.github.io/2018/11/09/socket-ios-use/"/>
+    <id>https://songminzh.github.io/2018/11/09/socket-ios-use/</id>
     <published>2018-11-09T02:19:36.000Z</published>
     <updated>2018-11-09T02:21:48.000Z</updated>
     
@@ -308,21 +308,21 @@
     
     </summary>
     
-      <category term="network" scheme="https://fusugz.github.io/categories/network/"/>
+      <category term="network" scheme="https://songminzh.github.io/categories/network/"/>
     
-      <category term="iOS" scheme="https://fusugz.github.io/categories/network/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/categories/network/iOS/"/>
     
     
-      <category term="iOS" scheme="https://fusugz.github.io/tags/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/tags/iOS/"/>
     
-      <category term="socket" scheme="https://fusugz.github.io/tags/socket/"/>
+      <category term="socket" scheme="https://songminzh.github.io/tags/socket/"/>
     
   </entry>
   
   <entry>
     <title>EasyAR应用之扫卡播放视频</title>
-    <link href="https://fusugz.github.io/2018/11/09/easyar/"/>
-    <id>https://fusugz.github.io/2018/11/09/easyar/</id>
+    <link href="https://songminzh.github.io/2018/11/09/easyar/"/>
+    <id>https://songminzh.github.io/2018/11/09/easyar/</id>
     <published>2018-11-09T01:49:34.000Z</published>
     <updated>2018-11-09T02:16:38.000Z</updated>
     
@@ -338,14 +338,14 @@
     </summary>
     
     
-      <category term="AR" scheme="https://fusugz.github.io/tags/AR/"/>
+      <category term="AR" scheme="https://songminzh.github.io/tags/AR/"/>
     
   </entry>
   
   <entry>
     <title>H264视频iOS硬解－基于Video Toolbox 获取RGB像素</title>
-    <link href="https://fusugz.github.io/2017/11/16/h264-decode-use-video-toolbox/"/>
-    <id>https://fusugz.github.io/2017/11/16/h264-decode-use-video-toolbox/</id>
+    <link href="https://songminzh.github.io/2017/11/16/h264-decode-use-video-toolbox/"/>
+    <id>https://songminzh.github.io/2017/11/16/h264-decode-use-video-toolbox/</id>
     <published>2017-11-16T08:17:21.000Z</published>
     <updated>2017-11-16T08:33:30.000Z</updated>
     
@@ -361,17 +361,17 @@
     
     </summary>
     
-      <category term="video processing" scheme="https://fusugz.github.io/categories/video-processing/"/>
+      <category term="video processing" scheme="https://songminzh.github.io/categories/video-processing/"/>
     
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/tags/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/tags/Objective-C/"/>
     
   </entry>
   
   <entry>
     <title>基于OpenCV的iOS图像处理</title>
-    <link href="https://fusugz.github.io/2017/09/07/use-opencv-on-ios/"/>
-    <id>https://fusugz.github.io/2017/09/07/use-opencv-on-ios/</id>
+    <link href="https://songminzh.github.io/2017/09/07/use-opencv-on-ios/"/>
+    <id>https://songminzh.github.io/2017/09/07/use-opencv-on-ios/</id>
     <published>2017-09-07T02:10:36.000Z</published>
     <updated>2017-09-07T02:37:54.000Z</updated>
     
@@ -386,21 +386,21 @@
     
     </summary>
     
-      <category term="OpenCV" scheme="https://fusugz.github.io/categories/OpenCV/"/>
+      <category term="OpenCV" scheme="https://songminzh.github.io/categories/OpenCV/"/>
     
     
-      <category term="image" scheme="https://fusugz.github.io/tags/image/"/>
+      <category term="image" scheme="https://songminzh.github.io/tags/image/"/>
     
-      <category term="OpenCV" scheme="https://fusugz.github.io/tags/OpenCV/"/>
+      <category term="OpenCV" scheme="https://songminzh.github.io/tags/OpenCV/"/>
     
-      <category term="Recognition" scheme="https://fusugz.github.io/tags/Recognition/"/>
+      <category term="Recognition" scheme="https://songminzh.github.io/tags/Recognition/"/>
     
   </entry>
   
   <entry>
     <title>不得不说的iOS字体在app中的使用规范</title>
-    <link href="https://fusugz.github.io/2017/08/23/iOS-font-setting/"/>
-    <id>https://fusugz.github.io/2017/08/23/iOS-font-setting/</id>
+    <link href="https://songminzh.github.io/2017/08/23/iOS-font-setting/"/>
+    <id>https://songminzh.github.io/2017/08/23/iOS-font-setting/</id>
     <published>2017-08-23T08:54:24.000Z</published>
     <updated>2017-08-23T09:10:10.000Z</updated>
     
@@ -415,21 +415,21 @@
     
     </summary>
     
-      <category term="iOS" scheme="https://fusugz.github.io/categories/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/categories/iOS/"/>
     
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/tags/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/tags/Objective-C/"/>
     
-      <category term="font" scheme="https://fusugz.github.io/tags/font/"/>
+      <category term="font" scheme="https://songminzh.github.io/tags/font/"/>
     
-      <category term="System" scheme="https://fusugz.github.io/tags/System/"/>
+      <category term="System" scheme="https://songminzh.github.io/tags/System/"/>
     
   </entry>
   
   <entry>
     <title>Objective-c_3_features</title>
-    <link href="https://fusugz.github.io/2017/08/10/Objective-c-3-features/"/>
-    <id>https://fusugz.github.io/2017/08/10/Objective-c-3-features/</id>
+    <link href="https://songminzh.github.io/2017/08/10/Objective-c-3-features/"/>
+    <id>https://songminzh.github.io/2017/08/10/Objective-c-3-features/</id>
     <published>2017-08-10T04:19:58.000Z</published>
     <updated>2017-08-11T09:11:52.000Z</updated>
     
@@ -450,8 +450,8 @@
   
   <entry>
     <title>iOS数据持久化之FMDB的简单封装</title>
-    <link href="https://fusugz.github.io/2017/07/03/fmdb-encapsulate/"/>
-    <id>https://fusugz.github.io/2017/07/03/fmdb-encapsulate/</id>
+    <link href="https://songminzh.github.io/2017/07/03/fmdb-encapsulate/"/>
+    <id>https://songminzh.github.io/2017/07/03/fmdb-encapsulate/</id>
     <published>2017-07-03T03:29:11.000Z</published>
     <updated>2017-07-03T03:43:44.000Z</updated>
     
@@ -466,19 +466,19 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://fusugz.github.io/categories/Objective-C/"/>
+      <category term="Objective-C" scheme="https://songminzh.github.io/categories/Objective-C/"/>
     
     
-      <category term="fmdb" scheme="https://fusugz.github.io/tags/fmdb/"/>
+      <category term="fmdb" scheme="https://songminzh.github.io/tags/fmdb/"/>
     
-      <category term="database" scheme="https://fusugz.github.io/tags/database/"/>
+      <category term="database" scheme="https://songminzh.github.io/tags/database/"/>
     
   </entry>
   
   <entry>
     <title>不容错过的WWDC17全程记录</title>
-    <link href="https://fusugz.github.io/2017/06/06/note-of-WWDC17/"/>
-    <id>https://fusugz.github.io/2017/06/06/note-of-WWDC17/</id>
+    <link href="https://songminzh.github.io/2017/06/06/note-of-WWDC17/"/>
+    <id>https://songminzh.github.io/2017/06/06/note-of-WWDC17/</id>
     <published>2017-06-06T11:09:46.000Z</published>
     <updated>2017-06-06T11:13:30.000Z</updated>
     
@@ -493,19 +493,19 @@
     
     </summary>
     
-      <category term="iOS" scheme="https://fusugz.github.io/categories/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/categories/iOS/"/>
     
     
-      <category term="iOS" scheme="https://fusugz.github.io/tags/iOS/"/>
+      <category term="iOS" scheme="https://songminzh.github.io/tags/iOS/"/>
     
-      <category term="WWDC" scheme="https://fusugz.github.io/tags/WWDC/"/>
+      <category term="WWDC" scheme="https://songminzh.github.io/tags/WWDC/"/>
     
   </entry>
   
   <entry>
     <title>写一个Delete程序去忘记</title>
-    <link href="https://fusugz.github.io/2017/06/04/write-a-delete-program-to-forget/"/>
-    <id>https://fusugz.github.io/2017/06/04/write-a-delete-program-to-forget/</id>
+    <link href="https://songminzh.github.io/2017/06/04/write-a-delete-program-to-forget/"/>
+    <id>https://songminzh.github.io/2017/06/04/write-a-delete-program-to-forget/</id>
     <published>2017-06-04T15:10:26.000Z</published>
     <updated>2017-06-04T15:11:52.000Z</updated>
     
@@ -520,10 +520,10 @@
     
     </summary>
     
-      <category term="program" scheme="https://fusugz.github.io/categories/program/"/>
+      <category term="program" scheme="https://songminzh.github.io/categories/program/"/>
     
     
-      <category term="forget" scheme="https://fusugz.github.io/tags/forget/"/>
+      <category term="forget" scheme="https://songminzh.github.io/tags/forget/"/>
     
   </entry>
   
